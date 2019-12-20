@@ -1,0 +1,90 @@
+/* Header style*/
+
+.header-image{
+    background: url(./components/image.jpeg);
+    height: 230px;
+    overflow: hidden;
+    opacity: 0.4;
+}
+
+.header-text{
+    position: relative;
+    bottom: 160px;
+    text-align: center;
+}
+
+.input-field{
+    width: 250px;
+    margin: 0px auto;
+    padding: 10px; 
+    text-align: center;   
+}
+
+/* BeerList flex style */
+
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+}
+
+.each-beer{
+    flex: 0 0 26%;
+    padding: 10px;
+    text-align: center;
+    line-height: 45px; 
+  }
+
+.each-beer img{
+    margin: 0 auto;
+    width: 50px;
+    height: 190px;
+ }
+
+.each-beer:hover{
+    background: #eee;
+} 
+
+p{
+    color: goldenrod;
+}
+
+/* Pagination style */
+
+.pagination{
+    margin: 0 auto;
+    padding: 30px;  
+}
+
+/* SingleBeer component style */
+
+.container{
+    max-width: 760px;
+    margin: 150px auto;
+}
+.container img{
+    width: 70px;
+    height: 270px;
+    float: left;
+}
+
+.beer-details{
+    width: 500px;
+    float: right;
+    text-align: center;
+} 
+
+.container:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+button{
+   display: block;
+   margin: 0 auto;
+   padding: 10px 50px;
+   background: rgb(104, 98, 98);
+   color: white;   
+}
