@@ -84,6 +84,7 @@ class Home extends Component {
                 </div>
                 <div className="flex-container">
                     {beerList}
+                    
                 </div>
                 <div className="pagination">
                     <Pagination

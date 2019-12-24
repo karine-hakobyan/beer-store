@@ -61,7 +61,7 @@ p{
 
 .container{
     max-width: 760px;
-    margin: 150px auto;
+    margin: 0 auto;
 }
 .container img{
     width: 70px;
@@ -81,10 +81,66 @@ p{
     clear: both;
 }
 
-button{
+.go-home{
    display: block;
    margin: 0 auto;
    padding: 10px 50px;
    background: rgb(104, 98, 98);
    color: white;   
+}
+
+.add-cart{
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    padding: 10px 20px;
+    background: rgb(104, 98, 98);
+    color: white; 
+}
+
+/* Shopping Cart style */
+.cart-container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.cart-beer{
+    margin: 20px;
+    flex: 0 0 44%;
+    padding: 80px;
+}
+
+.cart-beer:hover{
+   background: #eee;
+}
+
+.cart-beer img{
+    width: 50px;
+    height: 190px;
+ }
+
+ .cart-beer-details{
+    position: relative;
+    left: 100px;
+    bottom: 150px;
+}
+
+h2{
+    text-align: center;
+}
+
+.delete-button{
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    padding: 10px 20px;
+    background: rgb(104, 98, 98);
+    color: white; 
+    opacity: 0;
+}
+.cart-beer:hover .delete-button{
+  opacity: 1;
 }

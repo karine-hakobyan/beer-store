@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './Header';
+import { Link } from 'react-router-dom';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies}  from 'react-cookie';
 
 class SingleBeer extends Component {
-    constructor() {
-        super();
+
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    constructor(props) {
+        super(props);
 
         this.state = {
-            beer: null
+            beer: null,
         }
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +35,14 @@ class SingleBeer extends Component {
     handleClick(e) {
         e.preventDefault();
         this.props.history.push('./');
+    }
+
+    handleAdd() {
+        const { cookies } = this.props;
+        let key = 'id-' + this.state.beer.id
+        cookies.set(key, this.state.beer.id, { path: '/' });
+        // cookies.remove('smuuid')
+        console.log(cookies.cookies)
     }
 
     render() {
@@ -44,11 +61,13 @@ class SingleBeer extends Component {
         return (
             <div>
                 <Header />
+                <Link to={'/shoppingcart'}>Your cart</Link>
                 {beer}
-                <button onClick={this.handleClick}>Go Home!</button>
+                <button className='add-cart' onClick={this.handleAdd}>Add to cart</button>
+                <button className='go-home' onClick={this.handleClick}>Go Home!</button>
             </div>
         )
     }
 }
 
-export default SingleBeer
+export default withCookies(SingleBeer);
