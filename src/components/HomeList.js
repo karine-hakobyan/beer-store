@@ -4,10 +4,17 @@ import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from './Header';
+import basket from './basket.jpg';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 class Home extends Component {
 
-    argument='https://api.punkapi.com/v2/beers?per_page=9&page='
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    argument = 'https://api.punkapi.com/v2/beers?per_page=9&page='
 
     constructor() {
         super();
@@ -21,7 +28,8 @@ class Home extends Component {
         this.getBeers = this.getBeers.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.filterBeers = this.filterBeers.bind(this);
-        this.updateSearch = this.updateSearch.bind(this);   
+        this.updateSearch = this.updateSearch.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
     }
 
 
@@ -40,9 +48,9 @@ class Home extends Component {
     }
 
     handlePageChange(pageNumber) {
-        this.setState({ 
+        this.setState({
             activePage: pageNumber
-         })
+        })
         this.getBeers(pageNumber)
     }
 
@@ -58,6 +66,12 @@ class Home extends Component {
         this.filterBeers(event.target.value)
     }
 
+    handleAdd(id) {
+        const { cookies } = this.props;
+        let key = 'id-' + id
+        cookies.set(key, id, { path: '/' });
+    }
+
 
     render() {
         const { beers } = this.state;
@@ -65,10 +79,13 @@ class Home extends Component {
         const beerList = beers.length ? (
             beers.map(beer => {
                 return (
-                    <Link to={'/' + beer.id} className="each-beer" key={beer.id}>
-                        <img src={beer.image_url} alt="Beer" />
-                        <p className="name">{beer.name}</p>
-                    </Link>
+                    <div className="each-beer">
+                        <Link to={'/' + beer.id}  key={beer.id}>
+                            <img src={beer.image_url} alt="Beer" />
+                            <p className="name">{beer.name}</p>
+                        </Link>
+                        <button className='add-cart-button' onClick={() => this.handleAdd(beer.id)}>Add to cart</button>
+                    </div>
                 )
             })
         ) : (
@@ -78,13 +95,15 @@ class Home extends Component {
         return (
             <div>
                 <Header />
+                <Link to={'/shoppingcart'} className='cart-icon'>
+                    <img src={basket} alt='basket' />
+                </Link>
                 <div className="input-field">
                     <p>Search for beer</p>
-                    <input type="text" value={this.state.search} onChange={this.updateSearch}/>   
+                    <input type="text" value={this.state.search} onChange={this.updateSearch} />
                 </div>
                 <div className="flex-container">
                     {beerList}
-                    
                 </div>
                 <div className="pagination">
                     <Pagination
@@ -102,4 +121,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withCookies(Home);

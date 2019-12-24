@@ -13,6 +13,19 @@
     text-align: center;
 }
 
+.cart-icon{
+    display: block;
+    margin: 0 100px;
+    position: relative;
+    bottom: 70px;
+    float: right;
+}
+
+.cart-icon img{
+   height: 80px;
+   width: 80px;
+}
+
 .input-field{
     width: 250px;
     margin: 0px auto;
@@ -20,7 +33,10 @@
     text-align: center;   
 }
 
-/* BeerList flex style */
+
+
+
+/* HomeList flex style */
 
 .flex-container{
     display: flex;
@@ -31,9 +47,10 @@
 
 .each-beer{
     flex: 0 0 26%;
-    padding: 10px;
+    margin: 10px 0;
+    padding: 20px;
     text-align: center;
-    line-height: 45px; 
+    line-height: 30px;   
   }
 
 .each-beer img{
@@ -44,11 +61,27 @@
 
 .each-beer:hover{
     background: #eee;
+    text-decoration: none;
 } 
 
 p{
     color: goldenrod;
 }
+
+.add-cart-button{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 15px;
+    background: rgb(224, 222, 222);
+    color: black; 
+}
+
+.add-cart-button:hover{
+    background: grey;
+}
+
+
 
 /* Pagination style */
 
@@ -56,6 +89,8 @@ p{
     margin: 0 auto;
     padding: 30px;  
 }
+
+
 
 /* SingleBeer component style */
 
@@ -81,24 +116,18 @@ p{
     clear: both;
 }
 
-.go-home{
+.go-back-button{
    display: block;
-   margin: 0 auto;
+   margin: 90px auto;
    padding: 10px 50px;
    background: rgb(104, 98, 98);
    color: white;   
 }
 
-.add-cart{
-    margin: 0 auto;
-    text-align: center;
-    display: block;
-    padding: 10px 20px;
-    background: rgb(104, 98, 98);
-    color: white; 
-}
+
 
 /* Shopping Cart style */
+
 .cart-container{
     display: flex;
     flex-wrap: wrap;
@@ -107,22 +136,22 @@ p{
     justify-content: space-between;
 }
 
-.cart-beer{
+.cart-item{
     margin: 20px;
     flex: 0 0 44%;
     padding: 80px;
 }
 
-.cart-beer:hover{
+.cart-item:hover{
    background: #eee;
 }
 
-.cart-beer img{
+.cart-item img{
     width: 50px;
     height: 190px;
  }
 
- .cart-beer-details{
+ .cart-item-details{
     position: relative;
     left: 100px;
     bottom: 150px;
@@ -132,15 +161,26 @@ h2{
     text-align: center;
 }
 
-.delete-button{
+.remove-item{
     margin: 0 auto;
     text-align: center;
     display: block;
     padding: 10px 20px;
-    background: rgb(104, 98, 98);
+    background: rgb(151, 147, 147);
     color: white; 
-    opacity: 0;
+    border-radius: 15px;
 }
-.cart-beer:hover .delete-button{
-  opacity: 1;
+
+.remove-item:hover{
+    background: grey;
+}
+
+
+.go-home-button{
+    position: relative;
+    bottom: 50px;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: rgb(104, 98, 98);
+    color: white;
 }

@@ -18,57 +18,55 @@ class ShoppingCart extends Component {
         };
 
         this.deleteFromCart = this.deleteFromCart.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         // console.log(this.props.cookies)
         var cookiesValuesArray = Object.values(this.props.cookies.cookies)
-        // console.log(cookiesValuesArray)
 
         for (let i of cookiesValuesArray) {
             axios.get('https://api.punkapi.com/v2/beers/' + i)
                 .then(res => {
-                    // console.log(res.data[0])
                     let addedBeers = [...this.state.addedBeers, res.data[0]];
                     console.log(addedBeers)
-                    this.setState({
-                        addedBeers
-                    })
+                    this.setState({ addedBeers })
                 })
         }
-
     }
 
     deleteFromCart(beer) {
         this.props.cookies.remove(beer)
-        // console.log(this.props.cookies.cookies)
-        // console.log(this.props.cookies.getAll())
-        // this.setState({addedBeers: this.props.cookies.getAll()})
-var addedBeers = [...this.state.addedBeers]
+        var addedBeers = [...this.state.addedBeers]
         for (let i in addedBeers) {
-            // console.log(this.state.addedBeers[i].id)
             if (addedBeers[i].id === Number(beer.slice(3))) {
-                      addedBeers.splice(i, 1)
-                      console.log(addedBeers)
+                addedBeers.splice(i, 1)
+                console.log(addedBeers)
             }
         }
-        this.setState({addedBeers})
+        this.setState({ addedBeers })
     }
+
+
+    handleClick(e) {
+        e.preventDefault();
+        this.props.history.push('./');
+    }
+
 
     render() {
         const { addedBeers } = this.state;
-        // console.log(this.state.addedBeers)
 
         const cartContent = addedBeers.length ? (
             addedBeers.map(beer => {
                 return (
-                    <div className='cart-beer' key={beer.id}>
+                    <div className='cart-item' key={beer.id}>
                         <img src={beer.image_url} alt="Beer" />
-                        <div className='cart-beer-details'>
+                        <div className='cart-item-details'>
                             <h3>{beer.name}</h3>
                             <p>First brewed in {beer.first_brewed}</p>
                         </div>
-                        <button className='delete-button' onClick={() => this.deleteFromCart('id-' + beer.id)}>Delete item from cart</button>
+                        <button className='remove-item' onClick={() => this.deleteFromCart('id-' + beer.id)}>Delete item from cart</button>
                     </div>
                 )
             })
@@ -79,7 +77,10 @@ var addedBeers = [...this.state.addedBeers]
         return (
             <div>
                 <Header />
-                <h2>Your Cart</h2>
+                <div>
+                    <button className='go-home-button' onClick={this.handleClick}>Go Home!</button>
+                    <h2>Your Cart</h2>
+                </div>
                 <div className='cart-container'>
                     {cartContent}
                 </div>
