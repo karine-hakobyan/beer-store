@@ -13,19 +13,6 @@
     text-align: center;
 }
 
-.cart-icon{
-    display: block;
-    margin: 0 100px;
-    position: relative;
-    bottom: 70px;
-    float: right;
-}
-
-.cart-icon img{
-   height: 80px;
-   width: 80px;
-}
-
 .input-field{
     width: 250px;
     margin: 0px auto;
@@ -61,7 +48,6 @@
 
 .each-beer:hover{
     background: #eee;
-    text-decoration: none;
 } 
 
 p{
@@ -184,3 +170,29 @@ h2{
     background: rgb(104, 98, 98);
     color: white;
 }
+
+/* CartIcon styles */
+
+
+.cart-icon{
+    height: 80px;
+    display: block;
+    float: right;
+    position: relative;
+    margin: 0 100px;
+    bottom: 70px;
+}
+
+.cart-icon img{
+   height: 80px;
+   width: 80px;
+}
+
+.cart-icon p{
+    display: block;
+    position: relative;
+    bottom: 80px;
+    left: 80px;
+    color: red;
+}
+

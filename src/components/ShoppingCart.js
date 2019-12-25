@@ -3,6 +3,10 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
 import Header from './Header';
+import CartIcon from './CartIcon';
+import { connect } from 'react-redux';
+import {subtractCartCount} from '../store/actions/cartCountAction';
+
 
 class ShoppingCart extends Component {
 
@@ -45,6 +49,7 @@ class ShoppingCart extends Component {
             }
         }
         this.setState({ addedBeers })
+        this.props.subtractCartCount()
     }
 
 
@@ -77,6 +82,7 @@ class ShoppingCart extends Component {
         return (
             <div>
                 <Header />
+                <CartIcon />
                 <div>
                     <button className='go-home-button' onClick={this.handleClick}>Go Home!</button>
                     <h2>Your Cart</h2>
@@ -89,4 +95,11 @@ class ShoppingCart extends Component {
     }
 }
 
-export default withCookies(ShoppingCart);
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        subtractCartCount: () => dispatch(subtractCartCount())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withCookies(ShoppingCart));

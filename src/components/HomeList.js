@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from './Header';
-import basket from './basket.jpg';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { connect } from 'react-redux';
+import {addCartCount} from '../store/actions/cartCountAction';
+import CartIcon from './CartIcon'
 
 class Home extends Component {
 
@@ -70,17 +72,19 @@ class Home extends Component {
         const { cookies } = this.props;
         let key = 'id-' + id
         cookies.set(key, id, { path: '/' });
+        this.props.addCartCount();
     }
 
 
     render() {
+        // console.log(this.props.addCartCount)
         const { beers } = this.state;
 
         const beerList = beers.length ? (
             beers.map(beer => {
                 return (
-                    <div className="each-beer">
-                        <Link to={'/' + beer.id}  key={beer.id}>
+                    <div className="each-beer" key={beer.id}>
+                        <Link to={'/' + beer.id} >
                             <img src={beer.image_url} alt="Beer" />
                             <p className="name">{beer.name}</p>
                         </Link>
@@ -95,9 +99,7 @@ class Home extends Component {
         return (
             <div>
                 <Header />
-                <Link to={'/shoppingcart'} className='cart-icon'>
-                    <img src={basket} alt='basket' />
-                </Link>
+                <CartIcon />
                 <div className="input-field">
                     <p>Search for beer</p>
                     <input type="text" value={this.state.search} onChange={this.updateSearch} />
@@ -121,4 +123,11 @@ class Home extends Component {
     }
 }
 
-export default withCookies(Home);
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        addCartCount: () => dispatch(addCartCount())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withCookies(Home));

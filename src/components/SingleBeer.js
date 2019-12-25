@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './Header';
-import { Link } from 'react-router-dom';
-import basket from './basket.jpg';
+import CartIcon from './CartIcon'
+
 
 class SingleBeer extends Component {
 
@@ -48,14 +48,14 @@ class SingleBeer extends Component {
         return (
             <div>
                 <Header />
-                <Link to={'/shoppingcart'} className='shopping-cart'>
-                    <img src={basket} alt='basket' />
-                </Link>
+                <CartIcon />
                 {beer}
                 <button className='go-back-button' onClick={this.handleClick}>Go Home!</button>
             </div>
         )
     }
 }
+
+
 
 export default SingleBeer;
