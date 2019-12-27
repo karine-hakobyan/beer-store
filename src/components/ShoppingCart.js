@@ -61,7 +61,6 @@ class ShoppingCart extends Component {
         for (let i in addedBeers) {
             if (addedBeers[i].id === beer) {
                 addedBeers.splice(i, 1)
-                console.log(addedBeers)
             }
         }
         this.setState({ addedBeers })

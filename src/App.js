@@ -23,8 +23,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path='/' component={HomeList} />
                         <Route path='/shoppingcart' component={ShoppingCart} /> 
-                        <Route path='/:beer_id' component={SingleBeer} /> 
-                        
+                        <Route path='/:beer_id' component={SingleBeer} />  
                     </Switch>
                 </div>
             </Router>
