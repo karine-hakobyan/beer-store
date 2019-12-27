@@ -1,7 +1,11 @@
+/* Project Name: Beer-store,
+    Author: Karine Hakobyan,
+    Date: 27.12.2019  */
+
 import React, { Component } from 'react';
-import basket from './basket.jpg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import basket from './images/basket.jpg';
 
 class CartIcon extends Component {
     render() {

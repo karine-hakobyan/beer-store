@@ -1,11 +1,15 @@
+/* Project Name: Beer-store,
+    Author: Karine Hakobyan,
+    Date: 27.12.2019  */
+
 import React from 'react';
-import image from './image.jpeg';
+import beer from './images/beer.jpeg';
 
 const Header = () => {
     return (
         <div>
             <div className="header-image">
-                <img src={image} alt='beer' />
+                <img src={beer} alt='beer' />
             </div>
             <div className='header-text'>
                 <h5>Welcome to our</h5>

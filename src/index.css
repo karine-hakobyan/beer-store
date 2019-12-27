@@ -1,7 +1,7 @@
 /* Header style*/
 
 .header-image{
-    background: url(./components/image.jpeg);
+    background: url(./components/images/beer.jpeg);
     height: 230px;
     overflow: hidden;
     opacity: 0.4;
@@ -28,13 +28,12 @@
 .flex-container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
     align-content: space-between;
 }
 
 .each-beer{
     flex: 0 0 26%;
-    margin: 10px 0;
+    margin: 10px 60px;
     padding: 20px;
     text-align: center;
     line-height: 30px;   
@@ -50,7 +49,7 @@
     background: #eee;
 } 
 
-p{
+.beer-name{
     color: goldenrod;
 }
 
@@ -67,6 +66,11 @@ p{
     background: grey;
 }
 
+.center{
+    text-align: center;
+    color: red;
+    font-size: medium;
+}
 
 
 /* Pagination style */
@@ -94,6 +98,7 @@ p{
     width: 500px;
     float: right;
     text-align: center;
+    color: goldenrod;
 } 
 
 .container:after{
@@ -141,6 +146,7 @@ p{
     position: relative;
     left: 100px;
     bottom: 150px;
+    color: goldenrod;
 }
 
 h2{
@@ -194,5 +200,11 @@ h2{
     bottom: 80px;
     left: 80px;
     color: red;
+}
+
+@media (max-width: 800px) {
+    .each-beer {
+      flex: 44%;
+    }
 }
 

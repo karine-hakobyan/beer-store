@@ -18,14 +18,6 @@ const rootReducer = (state = initState, action) => {
         default:
             return state
     }
-    // if (action.type === 'ADD_CART_COUNT') {
-    //     let newCount = ++state.count
-    //     return {
-    //         ...state,
-    //         count: newCount
-    //     }
-    // }
-
 }
 
 export default rootReducer;

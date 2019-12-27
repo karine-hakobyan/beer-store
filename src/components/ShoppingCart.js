@@ -1,11 +1,17 @@
+/* Project Name: Beer-store,
+    Author: Karine Hakobyan,
+    Date: 27.12.2019  */
+
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 import Header from './Header';
 import CartIcon from './CartIcon';
-import { connect } from 'react-redux';
 import {subtractCartCount} from '../store/actions/cartCountAction';
+import {cookieName} from '../App';
 
 
 class ShoppingCart extends Component {
@@ -23,27 +29,37 @@ class ShoppingCart extends Component {
 
         this.deleteFromCart = this.deleteFromCart.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.renderCartContent=this.renderCartContent.bind(this);
     }
 
+    // Get a single beer  based on cookie value and store it in the state
     componentDidMount() {
-        // console.log(this.props.cookies)
-        var cookiesValuesArray = Object.values(this.props.cookies.cookies)
+        const { cookies } = this.props;
 
-        for (let i of cookiesValuesArray) {
+        let beerIdsArray = cookies.get(cookieName).split('-')
+        
+        beerIdsArray.pop(beerIdsArray.length - 1)
+
+        for (let i of beerIdsArray) {
             axios.get('https://api.punkapi.com/v2/beers/' + i)
                 .then(res => {
                     let addedBeers = [...this.state.addedBeers, res.data[0]];
-                    console.log(addedBeers)
                     this.setState({ addedBeers })
                 })
         }
     }
 
+    // Algorithm for deleting item from shopping cart
     deleteFromCart(beer) {
-        this.props.cookies.remove(beer)
+        const { cookies } = this.props;
+
+        var newString = cookies.get(cookieName).replace(beer + '-','')
+
+        cookies.set(cookieName, newString, { path: '/' })
+
         var addedBeers = [...this.state.addedBeers]
         for (let i in addedBeers) {
-            if (addedBeers[i].id === Number(beer.slice(3))) {
+            if (addedBeers[i].id === beer) {
                 addedBeers.splice(i, 1)
                 console.log(addedBeers)
             }
@@ -53,13 +69,13 @@ class ShoppingCart extends Component {
     }
 
 
+    // Go back to Home page
     handleClick(e) {
         e.preventDefault();
         this.props.history.push('./');
     }
 
-
-    render() {
+    renderCartContent(){
         const { addedBeers } = this.state;
 
         const cartContent = addedBeers.length ? (
@@ -68,17 +84,21 @@ class ShoppingCart extends Component {
                     <div className='cart-item' key={beer.id}>
                         <img src={beer.image_url} alt="Beer" />
                         <div className='cart-item-details'>
-                            <h3>{beer.name}</h3>
+                            <h4>{beer.name}</h4>
                             <p>First brewed in {beer.first_brewed}</p>
                         </div>
-                        <button className='remove-item' onClick={() => this.deleteFromCart('id-' + beer.id)}>Delete item from cart</button>
+                        <button className='remove-item' onClick={() => this.deleteFromCart(beer.id)}>Delete item from cart</button>
                     </div>
                 )
             })
         ) : (
-                <div className="center">No beers yet!</div>
+                <div className="center">Your cart is empty!</div>
             )
+            return cartContent
+    }
 
+
+    render() {
         return (
             <div>
                 <Header />
@@ -88,7 +108,7 @@ class ShoppingCart extends Component {
                     <h2>Your Cart</h2>
                 </div>
                 <div className='cart-container'>
-                    {cartContent}
+                    {this.renderCartContent()}
                 </div>
             </div>
         )
