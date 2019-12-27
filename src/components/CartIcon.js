@@ -10,7 +10,7 @@ import basket from './images/basket.jpg';
 class CartIcon extends Component {
     render() {
         return (
-                <Link to={'/shoppingcart'} className='cart-icon'>
+                <Link to='/shoppingcart' className='cart-icon'>
                     <img src={basket} alt='basket' />
                     <p>{this.props.count}</p>
                 </Link>

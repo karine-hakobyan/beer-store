@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 
 import Header from './Header';
 import CartIcon from './CartIcon';
-import {subtractCartCount} from '../store/actions/cartCountAction';
-import {cookieName} from '../App';
+import { subtractCartCount } from '../store/actions/cartCountAction';
+import { cookieName } from '../App';
 
 
 class ShoppingCart extends Component {
@@ -29,31 +29,36 @@ class ShoppingCart extends Component {
 
         this.deleteFromCart = this.deleteFromCart.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.renderCartContent=this.renderCartContent.bind(this);
+        this.renderCartContent = this.renderCartContent.bind(this);
     }
 
     // Get a single beer  based on cookie value and store it in the state
     componentDidMount() {
         const { cookies } = this.props;
+        if (cookies.get(cookieName) === undefined) {
+            return this.state
+        } else {
 
-        let beerIdsArray = cookies.get(cookieName).split('-')
-        
-        beerIdsArray.pop(beerIdsArray.length - 1)
+            let beerIdsArray = cookies.get(cookieName).split('-')
 
-        for (let i of beerIdsArray) {
-            axios.get('https://api.punkapi.com/v2/beers/' + i)
-                .then(res => {
-                    let addedBeers = [...this.state.addedBeers, res.data[0]];
-                    this.setState({ addedBeers })
-                })
+            beerIdsArray.pop(beerIdsArray.length - 1)
+
+            for (let i of beerIdsArray) {
+                axios.get('https://api.punkapi.com/v2/beers/' + i)
+                    .then(res => {
+                        let addedBeers = [...this.state.addedBeers, res.data[0]];
+                        this.setState({ addedBeers })
+                    })
+            }
         }
+
     }
 
     // Algorithm for deleting item from shopping cart
     deleteFromCart(beer) {
         const { cookies } = this.props;
 
-        var newString = cookies.get(cookieName).replace(beer + '-','')
+        var newString = cookies.get(cookieName).replace(beer + '-', '')
 
         cookies.set(cookieName, newString, { path: '/' })
 
@@ -74,7 +79,7 @@ class ShoppingCart extends Component {
         this.props.history.push('./');
     }
 
-    renderCartContent(){
+    renderCartContent() {
         const { addedBeers } = this.state;
 
         const cartContent = addedBeers.length ? (
@@ -93,7 +98,7 @@ class ShoppingCart extends Component {
         ) : (
                 <div className="center">Your cart is empty!</div>
             )
-            return cartContent
+        return cartContent
     }
 
 
