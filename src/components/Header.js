@@ -3,7 +3,7 @@
     Date: 27.12.2019  */
 
 import React from 'react';
-import beer from './images/beer.jpeg';
+import beer from '../assets/images/beer.jpeg';
 
 const Header = () => {
     return (

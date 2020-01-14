@@ -2,26 +2,20 @@
     Author: Karine Hakobyan,
     Date: 27.12.2019  */
 
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import basket from './images/basket.jpg';
+import basket from '../assets/images/basket.jpg';
+import { BeerDataContext } from '../contexts/BeerDataContext';
 
-class CartIcon extends Component {
-    render() {
-        return (
-                <Link to='/shoppingcart' className='cart-icon'>
-                    <img src={basket} alt='basket' />
-                    <p>{this.props.count}</p>
-                </Link>
-        )
-    }
-}
+export const CartIcon = () => {
 
-const mapStateToProps = (state) => {
-    return {
-        count: state.count
-    }
-}
+    const { cartCount } = useContext(BeerDataContext)
+    return (
+        <Link to="/shoppingcart" className="cart-icon">
+            <img src={basket} alt="basket" />
+            <p>{cartCount}</p>
+        </Link>
+    );
+};
 
-export default connect(mapStateToProps)(CartIcon);
+export default CartIcon
